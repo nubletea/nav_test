@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nav</title>
+</head>
+<style>
+    *{box-sizing: border-box;}
+    body{
+        margin:0;
+        padding:0;
+    }
+    a{
+        text-decoration: none;
+        color:#000;
+    }
+    nav{
+        position: relative;
+    }
+    .gnb{
+        display:flex;
+        list-style: none;   
+        margin:0;
+        padding:0;
+        width:100%;  
+    }
+    .gnb li{
+        width:300px;
+        text-align: center;
+        border:1px solid #ddd;
+        padding:1rem 0;
+    }
+    .gnb_bar{
+        position:absolute;
+        width:50px;
+        height:5px;
+        z-index: 1;
+        bottom:0;
+        left:0;
+        background:orange;
+        transition:all .5s;
+        display:none;
+    }
+</style>
+<body>
+    <header>
+        <nav>
+            <ul class="gnb">
+                <li>
+                    <a href="#">네비를</a>
+                </li>
+                <li>
+                    <a href="#">만들어 보기 위해</a>
+                </li>
+                <li>
+                    <a href="#">테스트 해</a>
+                </li>
+                <li>
+                    <a href="#">보는 작업</a>
+                </li>
+                <li>
+                    <a href="#">입니다.</a>
+                </li>
+                <li>
+                    <a href="#">네비게이션 완성</a>
+                </li>
+            </ul>
+            <div class="gnb_bar"></div>
+        </nav>
+    </header>
+</body>
+<script>
+    const GNB_LI=document.querySelectorAll('.gnb li');
+    const GNB_BAR=document.querySelector('.gnb_bar');
+    const GNB=document.querySelector('.gnb');
+    const gnb={
+        arr_count:0,
+        arr:[],
+        arr_push:function(ME,arr){
+            arr.splice(0,ME.length);
+            for(let i=0;i<ME.length;i++){
+                arr.push(ME[i]);
+            }
+        }
+    }
+    for(let i=0;i<GNB_LI.length;i++){
+    GNB_LI[i].onmouseover=function(){
+        let li_width=this.offsetWidth;
+        let a_width=this.childNodes[1].offsetWidth;
+        GNB_BAR.style.display="block";
+        gnb.arr_push(GNB_LI,gnb.arr);
+        gnb.arr_count=gnb.arr.indexOf(this);
+        GNB_BAR.style.left=(li_width-a_width)/2+(li_width*gnb.arr_count)+'px';
+        GNB_BAR.style.width=a_width+'px';
+    }
+    }
+    GNB.onmouseleave=function(){
+        GNB_BAR.style.display='none';
+    }
+</script>
+</html>
